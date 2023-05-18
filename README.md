@@ -14,7 +14,9 @@ The **r7-repo-template** is a [GitHub repository template](https://docs.github.c
 
 ## Installation
 
-No installation is necessary. Follow the instructions under the [Usage](#usage) section below to create a repository using this template.
+R with the following packages installed:
+*==shiny==
+*shinydashboard
 
 ## Usage
 

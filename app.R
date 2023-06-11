@@ -1,6 +1,9 @@
 library(shiny)
 library(shinydashboard)
 library(shinyBS)
+library(shinycssloaders)
+library(httr)
+library(jsonlite)
 
 source("plot_arlisM.R")
 source("get_arlisM.R")
@@ -8,28 +11,14 @@ source("get_fundingM.R")
 source("plot_refugeM.R")
 source("plot_yearsM.R")
 source("plot_indivM.R")
-
-#Drop down list
-refuges <- list("Alaska Maritime",
-                "APB",
-                "Arctic",
-                "Izembek",
-                "Kanuti",
-                "Kenai",
-                "KNI",
-                "Kodiak",
-                "Selawik",
-                "Tetlin",
-                "Togiak",
-                "Yukon Delta",
-                "Yukon Flats")
+source("helper_functions.R")
 
 ui <- dashboardPage(
   dashboardHeader(title = "Operation ServCat"),
   dashboardSidebar(
     sidebarMenu(
       menuItem("Project Progress", tabName = "op", icon = icon("list-check")),
-      menuItem("Tracking Individuals", tabName = "indiv", icon = icon("user-tie")),
+      menuItem("By Refuge", tabName = "indiv", icon = icon("user-tie")),
       menuItem("Overall ServCat Stats", tabName = "serv", icon = icon("chart-simple"))
     )
   ),
@@ -39,7 +28,7 @@ ui <- dashboardPage(
       tabItem(tabName = "op",
               fluidRow(
                 column(8,
-                       box(title = "ARLIS Inputs by Refuge", plotOutput("plot_arlis"), background = "light-blue", width = NULL)
+                       box(title = "ARLIS Inputs by Refuge", withSpinner(plotOutput("plot_arlis")), background = "light-blue", width = NULL)
                 ),
                 column(4,
                        fluidRow(column(12, strong("Directions:"),p("Hover over the boxes below."))),
@@ -52,25 +41,25 @@ ui <- dashboardPage(
                 )
               ),
               fluidRow(
-                infoBox("Total Uploads by ARLIS", textOutput("get_arlis"), "Since Agreement Start (9/2018)", icon = icon("stats", lib="glyphicon"), color = "light-blue", width = 4),
-                infoBox("Funding for ARLIS", textOutput("funding"), "Since Agreement Start (9/2018)", icon = icon("dollar-sign"), color = "light-blue", width = 4)
+                infoBox("Total Uploads by ARLIS", withSpinner(textOutput("get_arlis")), "Since Agreement Start (9/2018)", icon = icon("stats", lib="glyphicon"), color = "light-blue", width = 4),
+                infoBox("Funding for ARLIS", withSpinner(textOutput("funding")), "Since Agreement Start (9/2018)", icon = icon("dollar-sign"), color = "light-blue", width = 4)
               )
       ),
       tabItem(tabName = "serv",
               fluidRow(
                 column(6,
-                       box(title = "Total Files by Refuge", plotOutput("refuge"), background = "light-blue", width = NULL)
+                       box(title = "Total Files by Refuge", withSpinner(plotOutput("refuge")), background = "light-blue", width = NULL)
                 ),
                 column(6,
-                       box(title = "Files Added by Year for Region 7 Refuge Program", plotOutput("years"), background = "light-blue", width = NULL)
+                       box(title = "Files Added by Year for Region 7 Refuge Program", withSpinner(plotOutput("years")), background = "light-blue", width = NULL)
                 )
               )
       ),
       tabItem(tabName = "indiv",
               fluidRow(
                 column(10,
-                       selectInput(inputId = "dropdown", label = "Select refuge:", refuges),
-                       box(plotOutput("indiv"), background = "light-blue", width = NULL)
+                       selectInput(inputId = "dropdown", label = "Select refuge:", return_refuge_df()$names),
+                       box(withSpinner(plotOutput("indiv")), background = "light-blue", width = NULL)
                        )
               )
       )
@@ -96,7 +85,7 @@ server <- function(input, output) {
   })
   
   output$years <- renderPlot({
-    plot_yearsM()
+    plot_years_cumulativeM()
   })
   
   output$indiv <- renderPlot({

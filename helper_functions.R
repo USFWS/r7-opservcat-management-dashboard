@@ -1,6 +1,25 @@
+#Function: api_call(params)
+#Takes list of parameters formatted as json and returns the total in the result
+#of an Advanced Search API call with one page
+# api_call <- function(params){
+#   #Make call
+#   url <- "https://ecos.fws.gov/ServCatServices/servcat/v4/rest/AdvancedSearch/Composite?top=1"
+#   body <- toJSON(params, auto_unbox = TRUE)
+#   response <- POST(url = url, body = body, encode = "json", add_headers("Content-Type" = "application/json"), verbose())
+#   
+#   #Halt code if error
+#   if(http_error(response) == TRUE){
+#     stop("This request has failed.")
+#   }
+#   
+#   #Convert output from json for parsing
+#   json_output <- fromJSON((content(response, as = "text")))
+#   
+#   return(json_output)
+# }
+
 #Function: return_refuge_df()
 #Returns data frame with refuge names, abbreviations, and cost center codes
-
 return_refuge_df <- function(){
   refNames <- c("Alaska Maritime",
                 "Alaska Peninsula/Becharof",
@@ -42,7 +61,7 @@ return_refuge_df <- function(){
 #Function: return_arlis_list()
 #Returns list of all reference creators associated with the ARLIS Team
 return_arlis_list <- function(){
-  arlis <- c("CeliaatARLIS", "CSwansonARLIS", "stevejarlis", "mwillis", "saddison2", "lohman.lucas", "Mwjohnson2", "ErinBentley", "Valerie-ARLIS", "thodges")
+  arlis <- c("CeliaatARLIS", "CSwansonARLIS", "stevejarlis", "mwillis", "saddison2", "lohman.lucas", "Mwjohnson2", "ErinBentley", "Valerie-ARLIS", "thodges", "celia_rozen@fws.gov")
   return(arlis)
 }
 
@@ -56,25 +75,6 @@ return_refprogram_list <- function(){
     allCCC[x] <- paste("FF07R", allCCC[x], "00", sep = "")
   }
   return(allCCC)
-}
-
-#Function: api_call(params)
-#Takes list of parameters formatted as json and returns the result of an
-#Advanced Search API call
-api_call <- function(params){
-  #Make call
-  url <- "https://ecos.fws.gov/ServCatServices/servcat-secure/v4/rest/AdvancedSearch/Composite"
-  body <- toJSON(params, auto_unbox = TRUE)
-  response <- POST(url = url, config = authenticate(":",":","ntlm"), body = body, encode = "json", add_headers("Content-Type" = "application/json"), verbose())
-  
-  #Halt code if error
-  if(http_error(response) == TRUE){
-    stop("This request has failed.")
-  }
-  
-  #Convert output from json for parsing
-  json_output <- fromJSON((content(response, as = "text")))
-  return(json_output)
 }
 
 #Function: query_refuge(refugeName)
@@ -129,6 +129,17 @@ query_year <- function(year){
     endDate = paste(year,"-12-31",sep = "")
   ))
   return(filterDate)
+}
+
+#Function: query_region(num)
+#Create parameter to filter search by references belonging to a given region
+query_region <- function(num){
+  filterRegion <- list(list(
+    order = 0,
+    logicOperator = "",
+    unitCode = paste("R000", num, sep="")
+  ))
+  return(filterRegion)
 }
 
 #Function: query_orgs(ccc_list)

@@ -3,7 +3,7 @@
 #of an Advanced Search API call with one page
 api_call <- function(params){
   #Make call
-  url <- "https://ecos.fws.gov/ServCatServices/servcat/v4/rest/AdvancedSearch/Composite?top=1"
+  url <- "https://iris.fws.gov/APPS/ServCatServices/servcat/v4/rest/AdvancedSearch/Composite?top=1"
   body <- toJSON(params, auto_unbox = TRUE)
   response <- POST(url = url, body = body, encode = "json", add_headers("Content-Type" = "application/json"), verbose())
   #response <- POST(url = url, config = authenticate(":",":","ntlm"), body = body, encode = "json", add_headers("Content-Type" = "application/json"), verbose())
@@ -50,7 +50,7 @@ api_call <- function(params){
 #Advanced Search API call with page length 5000
 api_call_long <- function(params){
   #Make call
-  url <- "https://ecos.fws.gov/ServCatServices/servcat/v4/rest/AdvancedSearch/Composite?top=2000"
+  url <- "https://iris.fws.gov/APPS/ServCatServices/servcat/v4/rest/AdvancedSearch/Composite?top=2000"
   body <- toJSON(params, auto_unbox = TRUE)
   response <- POST(url = url, body = body, encode = "json", add_headers("Content-Type" = "application/json"), verbose())
   #response <- POST(url = url, config = authenticate(":",":","ntlm"), body = body, encode = "json", add_headers("Content-Type" = "application/json"), verbose())

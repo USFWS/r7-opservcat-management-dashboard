@@ -15,9 +15,9 @@ source("get_data.R")
 source("ui_outputs.R")
 source("global.R")
 
-box1 <- paste("Alaska Maritime<br>Alaska Peninsula/Becharof<br>Arctic<br>Izembek<br>Kanuti<br>Kenai<br>Kodiak<br>Koyukuk/Nowitna/Innoko<br>",strong("Selawik"),"<br>",strong("Tetlin"),"<br>",strong("Togiak"),"<br>Yukon Delta<br>", strong("Yukon Flats"))
-box2 <- paste("Alaska Maritime<br>Alaska Peninsula/Becharof<br>Arctic<br>Izembek<br>Kanuti<br>Kenai<br>Kodiak<br>",strong("Koyukuk/Nowitna/Innoko"),"<br>Selawik<br>Tetlin<br>",strong("Togiak"),"<br>Yukon Delta<br>",strong("Yukon Flats"))
-box3 <- paste("Alaska Maritime<br>Alaska Peninsula/Becharof<br>",strong("Arctic"),"<br>Izembek<br>",strong("Kanuti"),"<br>",strong("Kenai x 2"),"<br>",strong("Kodiak x 2"),"<br>", strong("Koyukuk/Nowitna/Innoko"),"<br>",strong("Selawik"),"<br>",strong("Tetlin"),"<br>",strong("Togiak"),"<br>",strong("Yukon Delta"),"<br>",strong("Yukon Flats"))
+box1 <- paste("Alaska Maritime<br>Alaska Peninsula/Becharof<br>Arctic<br>",strong("Izembek"),"<br>Kanuti<br>Kenai<br>",strong("Kodiak"),"<br>Koyukuk/Nowitna/Innoko<br>",strong("Selawik"),"<br>",strong("Tetlin"),"<br>",strong("Togiak"),"<br>Yukon Delta<br>", strong("Yukon Flats"))
+box2 <- paste(strong("Alaska Maritime"),"<br>Alaska Peninsula/Becharof<br>Arctic<br>Izembek<br>Kanuti<br>Kenai<br>Kodiak<br>",strong("Koyukuk/Nowitna/Innoko"),"<br>Selawik<br>Tetlin<br>",strong("Togiak"),"<br>Yukon Delta<br>",strong("Yukon Flats"))
+box3 <- paste(strong("Alaska Maritime"),"<br>Alaska Peninsula/Becharof<br>",strong("Arctic"),"<br>",strong("Izembek"),"<br>",strong("Kanuti"),"<br>",strong("Kenai x 3"),"<br>",strong("Kodiak x 3"),"<br>", strong("Koyukuk/Nowitna/Innoko"),"<br>",strong("Selawik"),"<br>",strong("Tetlin x 2"),"<br>",strong("Togiak"),"<br>",strong("Yukon Delta"),"<br>",strong("Yukon Flats"))
 box4 <- paste("Alaska Maritime<br>",strong("Alaska Peninsula/Becharof"),"<br>Arctic<br>",strong("Izembek"),"<br>Kanuti<br>",strong("Kenai"),"<br>Kodiak<br>Koyukuk/Nowitna/Innoko<br>Selawik<br>",strong("Tetlin"),"<br>Togiak<br>",strong("Yukon Delta"),"<br>Yukon Flats")
 box5 <- paste("Alaska Maritime<br>Alaska Peninsula/Becharof<br>Arctic<br>Izembek<br>Kanuti<br>",strong("Kenai"),"<br>Kodiak<br>",strong("Koyukuk/Nowitna/Innoko"),"<br>Selawik<br>Tetlin<br>",strong("Togiak"),"<br>",strong("Yukon Delta"),"<br>",strong("Yukon Flats"))
 
@@ -73,13 +73,13 @@ ui <- dashboardPage(
                 column(4,
                        fluidRow(column(12, h3(em("Hover over the boxes below.")))),
                        h4(strong("Completion Rates")),
-                       fluidRow(column(12, div(id="box1",infoBox(title = "Refuge Completion of Hardcopy Effort", value = p(style = "font-size: 30pt", "30.8%"), icon = icon("file-lines"), color = "light-blue", width = NULL)))),
-                       fluidRow(column(12, div(id="box2",infoBox(title = "Refuge Completion of Digital Effort", value = p(style = "font-size: 30pt", "23.1%"), icon = icon("computer-mouse"), color = "light-blue", width = NULL)))),
+                       fluidRow(column(12, div(id="box1",infoBox(title = "Refuge Completion of Hardcopy Effort", value = p(style = "font-size: 30pt", "46.2%"), icon = icon("file-lines"), color = "light-blue", width = NULL)))),
+                       fluidRow(column(12, div(id="box2",infoBox(title = "Refuge Completion of Digital Effort", value = p(style = "font-size: 30pt", "30.8%"), icon = icon("computer-mouse"), color = "light-blue", width = NULL)))),
                        h4(strong("Participation Rates")),
-                       fluidRow(column(12, div(id="box3",valueBox("10 of 13 Refuges", "Have Hosted In-Person Visits", icon = icon("person"), color = "light-blue", width = NULL)))),
+                       fluidRow(column(12, div(id="box3",valueBox("12 of 13 Refuges", "Have Hosted In-Person Visits", icon = icon("person"), color = "light-blue", width = NULL)))),
                        fluidRow(column(12, div(id="box4",valueBox("5 of 13 Refuges", "Have Mailed Hardcopies", icon = icon("box-open"), color = "light-blue", width = NULL)))),
                        fluidRow(column(12, div(id="box5",valueBox("5 of 13 Refuges", "Have Sent Digital Files", icon = icon("cloud-arrow-down"), color = "light-blue", width = NULL)))),
-                       p(em("Section Last Updated: 04/17/24")),
+                       p(em("Section Last Updated: 11/14/24")),
                        bsPopover(id = "box1", title = "Refuges/Complexes", content = box1, placement = "left", trigger = "hover", options = NULL),
                        bsPopover(id = "box2", title = "Refuges/Complexes", content = box2, placement = "left", trigger = "hover", options = NULL),
                        bsPopover(id = "box3", title = "Refuges/Complexes", content = box3, placement = "left", trigger = "hover", options = NULL),

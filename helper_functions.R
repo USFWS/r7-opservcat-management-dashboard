@@ -61,7 +61,7 @@ return_refuge_df <- function(){
 #Function: return_arlis_list()
 #Returns list of all reference creators associated with the ARLIS Team
 return_arlis_list <- function(){
-  arlis <- c("CeliaatARLIS", "CSwansonARLIS", "stevejarlis", "mwillis", "saddison2", "lohman.lucas", "Mwjohnson2", "ErinBentley", "Valerie-ARLIS", "thodges", "celia_rozen@fws.gov")
+  arlis <- c("CeliaatARLIS", "CSwansonARLIS", "stevejarlis", "mwillis", "saddison2", "lohman.lucas", "Mwjohnson2", "ErinBentley", "Valerie-ARLIS", "thodges", "celia_rozen@fws.gov", "lauren_hintenlang@fws.gov")
   return(arlis)
 }
 
